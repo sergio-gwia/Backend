@@ -38,7 +38,7 @@ ProductsRouter.put("/:pid", async(req, res)=>{
     let newProduct = req.body;
     let productUpdate = await manager.updateProduct(pid, newProduct);
     if (!productUpdate) {
-        res.status(404).send({ status: "error", msg: "Product cannot be updated!" })
+        res.status(400).send({ status: "error", msg: "Product cannot be updated!" })
     }
     res.send({ status: "success", msg: "Updated Product"})
 })
@@ -47,7 +47,7 @@ ProductsRouter.delete("/:pid", async(req, res)=>{
     let pid = req.params.pid;
     let productDelete = await manager.deleteProduct(pid);
     if (!productDelete) {
-        res.status(404).send({ status: "error", msg: "Product cannot be deleted!" })
+        res.status(400).send({ status: "error", msg: "Product cannot be deleted!" })
     }
     res.send({ status: "success", msg: "Product deleted"})
 })

@@ -32,13 +32,15 @@ class ProductManager {
     async updateProduct(id, product){
         let products = await this.getProducts()
         let indice = products.findIndex(product => product.id == id)
-        if (indice !== -1) {
-            products[indice].title = product.title
-            products[indice].description = product.description
-            products[indice].price = product.price
-            products[indice].code = product.code
-            products[indice].stock = product.stock
-        }
+            if (indice !== -1) {
+                products[indice].title = product.title
+                products[indice].description = product.description
+                products[indice].price = product.price
+                products[indice].code = product.code
+                products[indice].stock = product.stock
+            } else{
+                return null;
+            }
         await fs.promises.writeFile(this.path, JSON.stringify(products))
         return product;
     }
@@ -48,6 +50,8 @@ class ProductManager {
         let indice = products.findIndex(product => product.id == id)
         if (indice !== -1) {
             products.splice(indice, 1)
+        } else {
+            return null;
         }
         await fs.promises.writeFile(this.path, JSON.stringify(products))
         return products;
