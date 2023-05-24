@@ -1,0 +1,13 @@
+body {
+    background-color: black;
+}
+
+.card {
+    margin-top: 20px;
+    height: 300px;
+}
+
+.formulario {
+    width: 300px;
+    height: 600px;
+}

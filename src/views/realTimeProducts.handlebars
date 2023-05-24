@@ -1,54 +1,45 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-6">
-      <div id="formContainer">
-        <h2>Cargar un producto</h2>
-        <div class="mb-3">
-          <label for="title" class="form-label">Titulo:</label>
-          <input type="text" id="title" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">Description:</label>
-          <input type="text" id="description" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="price" class="form-label">Precio:</label>
-          <input type="text" id="price" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="thumbnail" class="form-label">Imagen:</label>
-          <input type="text" id="thumbnail" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="code" class="form-label">Codigo:</label>
-          <input type="text" id="code" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="stock" class="form-label">Stock:</label>
-          <input type="text" id="stock" class="form-control" />
-        </div>
-        <button id="btnCrear" class="btn btn-primary">Crear</button>
-      </div>
+<div class="container row ">
+  <form class="formulario">
+    <h2 class="text-light">Ingrese Producto:</h2>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label text-light">Title:</label>
+      <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
     </div>
-    <div class="col-6">
-      <div>
-        <h2>Eliminar producto</h2>
-        <div class="mb-3">
-          <label for="id" class="form-label">Id:</label>
-          <input type="text" id="id" class="form-control">
-        </div>
-        <button id="btnDelete" class="btn btn-danger">Eliminar</button>
-      </div>
-      <div id="productsContainer">
-
-
-      </div>
-
-
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label text-light">Description:</label>
+      <input type="text" class="form-control" id="description">
     </div>
-  </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label text-light">Code:</label>
+      <input type="text" class="form-control" id="code">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label text-light">Price:</label>
+      <input type="text" class="form-control" id="price">
+    </div><div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label text-light">Stock:</label>
+      <input type="text" class="form-control" id="stock">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label text-light">Category:</label>
+      <input type="text" class="form-control" id="category">
+    </div>
+    <button type="submit" class="btn btn-success" id="btnAgregar">Agregar</button>
+  </form>
+
+  <form class="formulario">
+    <h2 class="text-light">Eliminar Producto:</h2>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label text-light">id:</label>
+      <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
+    </div>
+    <button type="submit" class="btn btn-danger" id="btnEliminar">Eliminar</button>
+  </form>
+  
+  
 </div>
-<h2>Listado de productos</h2>
-<div id="historyProducts"></div>
+
+<div id="productos">
+</div>
 <script src="/socket.io/socket.io.js"></script>
-<script src="/src/public/UserScket.js"></script>
+<script src="js/index.js"></script>

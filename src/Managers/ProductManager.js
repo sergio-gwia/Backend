@@ -13,7 +13,9 @@ class ProductManager {
 
     async addProduct(product){
         let products = await this.getProducts()
-        products.push(product)
+        let id = await this.generateId()
+        let producto = { id, ...product, status: true };
+        products.push(producto)
         await fs.promises.writeFile(this.path, JSON.stringify(products))
     }
     

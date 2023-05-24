@@ -7,11 +7,11 @@ let manager = new ProductManager;
 
 ViewRouter.get("/", async (req, res)=>{
     const products = await manager.getProducts()
-    res.render("index", { products })
+    res.render("index", { products, style:"style.css" })
 })
 
-ViewRouter.get("/realtimeproducts", (req, res) => {
-    res.render("realTimeProducts", {});
+ViewRouter.get("/realtimeProducts", (req, res) => {
+    res.render("realTimeProducts", {style:"style.css"});
   });
 
 export default ViewRouter;
