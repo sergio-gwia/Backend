@@ -40,4 +40,9 @@ io.on("connection", async (socket) =>{
     socket.on("createProduct", async (data) => {
         const newProduct = await manager.addProduct(data);
       });
+
+    socket.on("deleted-product", async (id)=>{
+      let deleted = await manager.deleteProduct(parseInt(id))
+    })  
 })
+
