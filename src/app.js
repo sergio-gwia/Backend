@@ -38,6 +38,7 @@ io.on("connection", async (socket) =>{
     }
 
     socket.on("createProduct", async (data) => {
+      console.log(data);
         const newProduct = await manager.addProduct(data);
       });
 
