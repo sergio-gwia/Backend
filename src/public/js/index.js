@@ -69,6 +69,6 @@ btnAgregar.addEventListener("click", () => {
   })
 
   btnEliminar.addEventListener("click", ()=>{
-    let id = socketId.value;
-    socket.emit("deleted-product", id)
+    let pid = socketId.value;
+    socket.emit("deleted-product", pid)
   })

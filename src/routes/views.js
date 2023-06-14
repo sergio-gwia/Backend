@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductManager from "../Managers/ProductManager.js";
+import ProductManager from "../DAO/MDBmanager/ProductsDAO.js";
 
 const ViewRouter = Router();
 
@@ -12,6 +12,10 @@ ViewRouter.get("/", async (req, res)=>{
 
 ViewRouter.get("/realtimeProducts", (req, res) => {
     res.render("realTimeProducts", {style:"style.css"});
+  });
+
+  ViewRouter.get("/chat", (req, res) => {
+    res.render("chat", {style:"style.css"});
   });
 
 export default ViewRouter;

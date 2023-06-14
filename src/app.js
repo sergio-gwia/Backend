@@ -2,7 +2,9 @@ import express from "express";
 import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
-import ProductManager from "./Managers/ProductManager.js";
+import mongoose from "mongoose";
+import ProductManager from "./DAO/MDBmanager/ProductsDAO.js";
+import { messagesModel } from "./DAO/models/Messages.model.js"
 import ProductsRouter from "./routes/products.js";
 import CartRouter from "./routes/cart.js";
 import ViewRouter from "./routes/views.js";
@@ -12,6 +14,10 @@ const app = express();
 const Httpserver = app.listen(8080, ()=>{
     console.log("Server Runing on port 8080");
 })
+
+mongoose.connect('mongodb+srv://sergiogwi:coderhouse123@coderhouse.itzu7mp.mongodb.net/ecommerce')
+  .then(()=> console.log("Database Connected!"))
+  .catch(err => console.log(err))
 
 const io = new Server(Httpserver)
 
@@ -31,7 +37,7 @@ const manager = new ProductManager;
 
 io.on("connection", async (socket) =>{
     console.log("New User conected!");
-
+    
     const data = await manager.getProducts();
     if (data) {
       io.emit("resp-new-product", data);
@@ -42,8 +48,14 @@ io.on("connection", async (socket) =>{
         const newProduct = await manager.addProduct(data);
       });
 
-    socket.on("deleted-product", async (id)=>{
-      let deleted = await manager.deleteProduct(parseInt(id))
-    })  
+    socket.on("deleted-product", async (pid)=>{
+      let deleted = await manager.deleteProduct(pid)
+    })
+
+    socket.on("message", async data => {
+      let newMessage = await messagesModel.create(data)
+      let allMessages = await messagesModel.find()
+      io.emit("allmessages", allMessages)
+    })
 })
 
