@@ -37,7 +37,12 @@ const manager = new ProductManager;
 
 io.on("connection", async (socket) =>{
     console.log("New User conected!");
+
+    socket.on("newUserLoged", (user) => {
+      socket.emit("allmessages", allMessages);
+    });
     
+
     const data = await manager.getProducts();
     if (data) {
       io.emit("resp-new-product", data);
@@ -51,7 +56,7 @@ io.on("connection", async (socket) =>{
     socket.on("deleted-product", async (pid)=>{
       let deleted = await manager.deleteProduct(pid)
     })
-
+    
     socket.on("message", async data => {
       let newMessage = await messagesModel.create(data)
       let allMessages = await messagesModel.find()

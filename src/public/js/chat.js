@@ -39,7 +39,9 @@ socket.on("allmessages", data => {
         usuario.innerText = element.user + " dice:";
         mensaje.innerText = element.message;
 
-        card.classList.add("mt-3")
+        card.classList.add("mt-3", "bg-warning", "card-chat")
+        usuario.classList.add("ps-2", "fw-bold", "pt-3")
+        mensaje.classList.add("ps-2", "fw-medium", "pb-3")
   
         card.appendChild(usuario);
         card.appendChild(mensaje);
