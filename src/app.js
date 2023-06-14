@@ -38,10 +38,9 @@ const manager = new ProductManager;
 io.on("connection", async (socket) =>{
     console.log("New User conected!");
 
-    socket.on("newUserLoged", (user) => {
-      socket.emit("allmessages", allMessages);
-    });
-    
+    let allMessages = await messagesModel.find()
+
+    socket.emit("allmessages", allMessages)
 
     const data = await manager.getProducts();
     if (data) {
@@ -62,5 +61,6 @@ io.on("connection", async (socket) =>{
       let allMessages = await messagesModel.find()
       io.emit("allmessages", allMessages)
     })
+
 })
 
