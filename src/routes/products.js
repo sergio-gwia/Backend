@@ -4,15 +4,19 @@ const ProductsRouter = Router();
 
 let manager = new ProductManager;
 
-ProductsRouter.get("/", async(req, res)=>{
-    let products;
+ProductsRouter.get("/", async (req, res)=>{
+    let limit = req.query.limit
+    let page = req.query.page
+    let sort = req.query.sort
+    let category = req.query.category
+    let products = []
     try {
-        products = await manager.getProducts()
+        products = await manager.getProducts(limit,page,sort,category)
     } catch (error) {
         res.status(400).send({status: "error", error})
     }
-    res.send({status: "success", payload: products})
-});
+    res.send({status:"success", payload: products})
+})
 
 ProductsRouter.get("/:pid", async (req, res)=>{
     let pid = req.params.pid;
@@ -62,4 +66,5 @@ ProductsRouter.delete("/:pid", async(req, res)=>{
     }
     res.send({ status: "success", msg: "Product deleted"})
 })
+
 export default ProductsRouter;

@@ -2,7 +2,7 @@
     <h1 class="text-center py-5 text-light">Productos:</h1>
     <div class="container">
         <div class="row justify-content-around">
-            {{#each products}}
+            {{#each productos}}
             <div class="col-4">
                 <div class="card border border-3">
                     <div class="card-body text-center">
@@ -12,10 +12,12 @@
                         <p class="card-text fs-6 fw-bold">Codigo: {{this.code}}</p>
                         <p class="card-text fs-6 fw-bold">Stock: {{this.stock}}</p>
                         <p class="card-text fs-6 fw-bold">Categoria: {{this.category}}</p>
+                        <button class="btn btn-success">Añadir al carrito</button>
                     </div>
                 </div>
             </div>
             {{/each}}
+            <p class="text-light text-center mt-5">Page: {{Newpage}}</p>
         </div>
     </div>
 

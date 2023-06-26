@@ -5,7 +5,7 @@ class ProductManager {
         this.model = Productsmodel;
     }
 
-    async getProducts(){
+    async AllProducts(){
         let products;
         try {
             products = await this.model.find()
@@ -23,6 +23,39 @@ class ProductManager {
             }
         })
         return productos
+    };
+
+
+    async getProducts(limit,page,sort,category){
+        let result;
+        const options = {
+            limit: limit ? limit : 10,
+            page: page ? page: 1,
+            sort: {price: sort === "desc" ? -1 : 1},
+          };
+          let query = {} 
+
+        if (category) {
+            query.category = category 
+        }
+
+        try {
+            result = await this.model.paginate(query, options)  
+        } catch (error) {
+            console.log(error)
+        }
+        let data = {
+            products: result.docs,
+            totalPages:result.totalPages,
+            prevPage:result.prevPage, 
+            nextPage:result.nextPage,
+            page:result.page,  
+            hasNextPage:result.hasNextPage, 
+            prevLink:result.prevLink, 
+            nextLink:result.nextLink 
+        }
+        console.log(data)
+        return data
     };
 
     async getProductsById(id){
@@ -66,6 +99,7 @@ class ProductManager {
 
         return product;
     }
+
 }
 
 export default ProductManager;
