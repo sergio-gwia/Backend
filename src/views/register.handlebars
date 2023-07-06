@@ -1,0 +1,27 @@
+<div class="container-sm bg-success-subtle mt-5">
+    <h1 class="text-center">Registrate</h1>
+    <form action="/api/sessions/register" method="post" role="form">
+        <div class="mb-3">
+            <label for="" class="form-label mt-2">First Name:</label>
+            <input type="text" class="form-control" id="firstName" name="first_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" name="last_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Age:</label>
+            <input type="text" class="form-control" id="age" name="age" required>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Registrarse</button>
+    </form>
+    <button class="btn btn-primary mb-3" onclick="location.href = '/api/sessions/login'">Ir a Login</button>
+</div>

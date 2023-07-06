@@ -8,6 +8,9 @@ import { messagesModel } from "./DAO/models/Messages.model.js"
 import ProductsRouter from "./routes/products.js";
 import CartRouter from "./routes/cart.js";
 import ViewRouter from "./routes/views.js";
+import sessionsRouter from "./routes/sessions.js";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 
 const app = express();
 
@@ -19,7 +22,6 @@ mongoose.connect('mongodb+srv://sergiogwi:coderhouse123@coderhouse.itzu7mp.mongo
   .then(()=> console.log("Database Connected!"))
   .catch(err => console.log(err))
 
-const io = new Server(Httpserver)
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
@@ -28,12 +30,25 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded( {extended: true} ))
+app.use(session({
+  store: MongoStore.create({
+    mongoUrl: 'mongodb+srv://sergiogwi:coderhouse123@coderhouse.itzu7mp.mongodb.net/ecommerce',
+    mongoOptions:{UseNewUrlParser: true, UseUnifiedTopology: true}
+  }),
+  secret: "Esteesmisecreto",
+  resave: false,
+  saveUninitialized: false
+}))
+
 
 app.use("/", ViewRouter)
 app.use("/api/products", ProductsRouter)
 app.use("/api/carts", CartRouter)
+app.use("/api/sessions", sessionsRouter)
 
 const manager = new ProductManager;
+
+const io = new Server(Httpserver)
 
 io.on("connection", async (socket) =>{
     console.log("New User conected!");

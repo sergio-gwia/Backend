@@ -54,7 +54,6 @@ class ProductManager {
             prevLink:result.prevLink, 
             nextLink:result.nextLink 
         }
-        console.log(data)
         return data
     };
 
