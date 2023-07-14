@@ -1,35 +1,39 @@
 import { Router } from "express";
-import UserManager from "../DAO/SessionManager/session.js"
 import authMiddleware from "../middlewares/auth.js";
+import passport from "passport";
 
 const sessionsRouter = Router();
-
-const userManager = new UserManager
-
-sessionsRouter.get("/login", (req, res)=>{
-    res.render("login", {})
-})
 
 sessionsRouter.get("/register", (req,res)=>{
     res.render("register", {})
 })
 
-sessionsRouter.post("/login", async (req, res)=>{
-    let user = req.body
-    let result = await userManager.getByEmail(user.user)
-    if (user.password !== result.password) {
-        res.render("login-error", {})
-        return
-    }
-    req.session.user = user.user
-     res.render("perfil", {user: result.first_name})
-})
-
-sessionsRouter.post("/register", async (req,res)=>{
-    let user = req.body
-    let result = await userManager.createUser(user)
+sessionsRouter.post("/register", passport.authenticate('register', {failureRedirect:"api/sessions/failregister"}), async (req,res)=>{
     res.render("login", {})
 })
+
+sessionsRouter.get("/failregister", (req, res)=>{
+    res.render("register-error", {})
+})
+
+
+sessionsRouter.get("/login", (req, res)=>{
+    res.render("login", {})
+})
+
+sessionsRouter.post("/login", passport.authenticate('login', { failureRedirect: "/api/sessions/faillogin" }), async (req, res) => {
+    if (!req.user) {
+        return res.render("login-error", {});
+    }
+    req.session.user = req.user.email;
+    return res.render("perfil", { user: req.session.user });
+});
+
+
+sessionsRouter.get("/faillogin", (req, res)=>{
+    res.render("login-error", {})
+})
+
 
 sessionsRouter.get("/perfil", authMiddleware, async (req, res)=>{
     let user = await userManager.getByEmail(req.session.user)

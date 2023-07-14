@@ -25,6 +25,16 @@ class UserManager {
         return result
     };
 
+    async getById(id) {
+        let result;
+        try {
+            result = await this.model.findOne({ id })
+        } catch (error) {
+            console.log(error)
+        }
+        return result
+    };
+
     async createUser (user) {
         let result;
         try {
